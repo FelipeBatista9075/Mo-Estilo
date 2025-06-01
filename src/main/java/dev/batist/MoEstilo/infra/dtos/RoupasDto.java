@@ -4,7 +4,6 @@ import dev.batist.MoEstilo.core.entities.enums.Cor;
 import dev.batist.MoEstilo.core.entities.enums.Genero;
 import dev.batist.MoEstilo.core.entities.enums.Tamanho;
 import lombok.Builder;
-import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 

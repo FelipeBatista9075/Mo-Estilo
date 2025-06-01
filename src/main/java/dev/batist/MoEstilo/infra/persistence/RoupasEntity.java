@@ -4,11 +4,14 @@ import dev.batist.MoEstilo.core.entities.enums.Cor;
 import dev.batist.MoEstilo.core.entities.enums.Genero;
 import dev.batist.MoEstilo.core.entities.enums.Tamanho;
 import jakarta.persistence.*;
+import lombok.Builder;
 
+import javax.lang.model.element.Name;
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "roupas")
+@Builder
 public class RoupasEntity {
 
     @Id
@@ -17,11 +20,14 @@ public class RoupasEntity {
     @Column(nullable = false)
     private String nome;
     private String descricao;
+    @Enumerated(EnumType.STRING)
     private Tamanho tamanho;
     @Column(nullable = false)
     private BigDecimal valor;
     private String marca;
+    @Enumerated(EnumType.STRING)
     private Genero genero;
+    @Enumerated(EnumType.STRING)
     private Cor cor;
 
     public RoupasEntity() {
