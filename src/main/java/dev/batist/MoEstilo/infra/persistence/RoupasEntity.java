@@ -27,13 +27,14 @@ public class RoupasEntity {
     private String marca;
     @Enumerated(EnumType.STRING)
     private Genero genero;
+    private Integer qte;
     @Enumerated(EnumType.STRING)
     private Cor cor;
 
     public RoupasEntity() {
     }
 
-    public RoupasEntity(Long id, String nome, String descricao, Tamanho tamanho, BigDecimal valor, String marca, Genero genero, Cor cor) {
+    public RoupasEntity(Long id, String nome, String descricao, Tamanho tamanho, BigDecimal valor, String marca, Genero genero, Integer qte, Cor cor) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -41,7 +42,16 @@ public class RoupasEntity {
         this.valor = valor;
         this.marca = marca;
         this.genero = genero;
+        this.qte = qte;
         this.cor = cor;
+    }
+
+    public Integer getQte() {
+        return qte;
+    }
+
+    public void setQte(Integer qte) {
+        this.qte = qte;
     }
 
     public Long getId() {

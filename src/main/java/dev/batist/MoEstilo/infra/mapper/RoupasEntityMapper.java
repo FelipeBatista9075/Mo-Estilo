@@ -16,6 +16,7 @@ public class RoupasEntityMapper {
                 .valor(roupas.getValor())
                 .marca(roupas.getMarca())
                 .genero(roupas.getGenero())
+                .qte(roupas.getQte())
                 .cor(roupas.getCor())
                 .build();
     }
@@ -28,6 +29,7 @@ public class RoupasEntityMapper {
                 entity.getValor(),
                 entity.getMarca(),
                 entity.getGenero(),
+                entity.getQte(),
                 entity.getCor());
     }
 }

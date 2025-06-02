@@ -1,0 +1,2 @@
+ALTER TABLE roupas
+ADD COLUMN qte INT;

@@ -16,6 +16,7 @@ public class RoupasMapper {
                 dto.valor(),
                 dto.marca(),
                 dto.genero(),
+                dto.qte(),
                 dto.cor());
     }
 
@@ -28,6 +29,7 @@ public class RoupasMapper {
                 .valor(roupas.getValor())
                 .marca(roupas.getMarca())
                 .genero(roupas.getGenero())
+                .qte(roupas.getQte())
                 .cor(roupas.getCor())
                 .build();
     }

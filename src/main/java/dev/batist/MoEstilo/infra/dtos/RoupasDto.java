@@ -15,6 +15,7 @@ public record RoupasDto(Long id,
                         BigDecimal valor,
                         String marca,
                         Genero genero,
+                        Integer qte,
                         Cor cor
 ) {
 }
