@@ -1,32 +1,43 @@
 package dev.batist.MoEstilo.infra.config;
 
-import dev.batist.MoEstilo.core.gateway.RoupasGateway;
-import dev.batist.MoEstilo.core.usecase.*;
-import dev.batist.MoEstilo.infra.mapper.RoupasEntityMapper;
+
+import dev.batist.MoEstilo.core.gateway.BasketGateway;
+import dev.batist.MoEstilo.core.gateway.ProductsGateway;
+import dev.batist.MoEstilo.core.useCase.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class BeanConfig {
 
-    private final RoupasEntityMapper roupasEntityMapper;
-
-    public BeanConfig(RoupasEntityMapper roupasEntityMapper) {
-        this.roupasEntityMapper = roupasEntityMapper;
+    @Bean
+    public CreateProductUseCase createProductUseCase(ProductsGateway productsGateway){
+        return new CreateProductImpl(productsGateway);
     }
 
     @Bean
-    public CriarRoupaUseCase criarRoupaUseCase(RoupasGateway roupasGateway){
-        return new CriarRoupaImpl(roupasGateway);
+    public DeleteProductUseCase deleteProductUseCase(ProductsGateway productsGateway){
+        return new DeleteProductImpl(productsGateway);
     }
 
     @Bean
-    public BuscarRoupaUseCase buscarRoupaUseCase(RoupasGateway roupasGateway){
-        return new BuscarRoupaImpl(roupasGateway);
+    public FilterByIdUseCase filterByIdUseCase(ProductsGateway productsGateway){
+        return new FilterByIdImpl(productsGateway);
     }
 
     @Bean
-    public DeletarRoupaUseCase deletarRoupaUseCase(RoupasGateway roupasGateway){
-        return new DeletarRoupaImpl(roupasGateway);
+    public ListProductsUseCase listProductsUseCase(ProductsGateway productsGateway){
+        return new ListProductsImpl(productsGateway);
+    }
+
+    @Bean
+    public UpdateProductUseCase updateProductUseCase(ProductsGateway productsGateway){
+        return new UpdateProductImpl(productsGateway);
+    }
+
+
+    @Bean
+    public CreateBasketUseCase createBasketUseCase(BasketGateway basketGateway){
+        return new CreateBasketImpl(basketGateway);
     }
 }

@@ -1,6 +1,6 @@
 package dev.batist.MoEstilo.core.entities;
 
-import dev.batist.MoEstilo.core.entities.enums.PayMethod;
+
 import dev.batist.MoEstilo.core.entities.enums.Status;
 
 import java.math.BigDecimal;
@@ -10,21 +10,19 @@ import java.util.UUID;
 public class Basket {
     private UUID id;
     private Long client;
-    private BigDecimal subtotal;
-    private List<Roupas> itens;
+    private BigDecimal totalPrice;
+    private List<Products> products;
     private Status status;
-    private PayMethod payMathod;
 
     public Basket() {
     }
 
-    public Basket(UUID id, Long client, BigDecimal subtotal, List<Roupas> itens, Status status, PayMethod payMethod) {
+    public Basket(UUID id, Long client, BigDecimal totalPrice, List<Products> products, Status status) {
         this.id = id;
         this.client = client;
-        this.subtotal = subtotal;
-        this.itens = itens;
+        this.totalPrice = totalPrice;
+        this.products = products;
         this.status = status;
-        this.payMathod = payMethod;
     }
 
     public UUID getId() {
@@ -43,35 +41,27 @@ public class Basket {
         this.client = client;
     }
 
-    public BigDecimal getSubtotal() {
-        return subtotal;
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setSubtotal(BigDecimal subtotal) {
-        this.subtotal = subtotal;
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
-    public List<Roupas> getItens() {
-        return itens;
+    public List<Products> getProducts() {
+        return products;
     }
 
-    public void setItens(List<Roupas> itens) {
-        this.itens = itens;
+    public void setProducts(List<Products> products) {
+        this.products = products;
     }
 
     public Status getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStattus(Status status) {
         this.status = status;
-    }
-
-    public PayMethod getPayMathod() {
-        return payMathod;
-    }
-
-    public void setPayMathod(PayMethod payMathod) {
-        this.payMathod = payMathod;
     }
 }
