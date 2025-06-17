@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Component
 public class BasketRepositoryGateway implements BasketGateway {
@@ -26,11 +27,18 @@ public class BasketRepositoryGateway implements BasketGateway {
                         .id(item.getId())
                         .name(item.getName())
                         .price(item.getPrice())
-                        .qty(item.getQty())
+                        .qty(p.getQty())
                         .build());
             });
         });
         return products;
+    }
+
+    public Basket getBasketById(Long id){
+        BasketEntity entity = basketRepository.findByClient(id)
+                .orElse(null);
+
+        return mapper.toDomain(entity);
     }
 
     private final ProductsRepository productsRepository;
@@ -60,5 +68,30 @@ public class BasketRepositoryGateway implements BasketGateway {
         basketEntity.calculateTotalPrice();
         BasketEntity seved = basketRepository.save(basketEntity);
         return mapper.toDomain(seved);
+    }
+
+    @Override
+    public void deleteBasket(UUID id) {
+        basketRepository.deleteById(id);
+    }
+
+    @Override
+    public Basket updateBasket(Long id, Basket basket) {
+        BasketEntity entity = basketRepository.findByClient(id)
+                .orElseThrow(() -> new EntityNotFoundException("Basket não encontrado"));
+        List<ProductsEntity> products = getProducts(mapper.toEntity(basket));
+        entity.setProducts(products);
+        entity.calculateTotalPrice();
+
+        BasketEntity saved = basketRepository.save(entity);
+        return mapper.toDomain(saved);
+    }
+
+    @Override
+    public Basket filter(Long id) {
+        BasketEntity entity = basketRepository.findByClient(id).orElse(null);
+        entity.getTotalPrice();
+        Basket domain = mapper.toDomain(entity);
+        return domain;
     }
 }

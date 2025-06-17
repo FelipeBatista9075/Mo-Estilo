@@ -35,9 +35,23 @@ public class BeanConfig {
         return new UpdateProductImpl(productsGateway);
     }
 
-
     @Bean
     public CreateBasketUseCase createBasketUseCase(BasketGateway basketGateway){
         return new CreateBasketImpl(basketGateway);
+    }
+
+    @Bean
+    public UpdateBasketUsecase updateBasketUsecase(BasketGateway basketGateway){
+        return new UpdateBasketImpl(basketGateway);
+    }
+
+    @Bean
+    public FilterBasketByIdUseCase filterBasketByIdUseCase(BasketGateway basketGateway){
+        return new FilterBasketByIdImpl(basketGateway);
+    }
+
+    @Bean
+    public DeleteBasketUseCase deleteBasketUseCase(BasketGateway basketGateway){
+        return new DeleteBasketImpl(basketGateway);
     }
 }

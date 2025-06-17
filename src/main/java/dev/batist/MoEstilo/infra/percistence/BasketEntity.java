@@ -27,11 +27,6 @@ public class BasketEntity {
     @Column(name = "total_price")
     private BigDecimal totalPrice;
     @ManyToMany
-    @JoinTable(
-            name = "basket_products",
-            joinColumns = @JoinColumn(name = "basket_entity_id"),
-            inverseJoinColumns = @JoinColumn(name = "products_id")
-    )
     private List<ProductsEntity> products;
     @Enumerated(EnumType.STRING)
     private Status status;
