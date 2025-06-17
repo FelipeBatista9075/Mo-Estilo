@@ -2,6 +2,7 @@ package dev.batist.MoEstilo.core.entities;
 
 
 import dev.batist.MoEstilo.core.entities.enums.Status;
+import dev.batist.MoEstilo.infra.percistence.ProductsEntity;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -23,6 +24,12 @@ public class Basket {
         this.totalPrice = totalPrice;
         this.products = products;
         this.status = status;
+    }
+
+    public Basket(Long client, List<Products> products, BigDecimal bigDecimal) {
+        this.client = client;
+        this.products = products;
+        this.totalPrice = totalPrice;
     }
 
     public UUID getId() {
