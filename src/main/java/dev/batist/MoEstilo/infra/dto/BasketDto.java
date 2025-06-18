@@ -10,6 +10,7 @@ import java.util.List;
 public record BasketDto(
          Long client,
          List<ProductsEntity> products,
-         BigDecimal totalPrice
+         BigDecimal totalPrice,
+         Integer totalQuantity
 ) {
 }

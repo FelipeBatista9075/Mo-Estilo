@@ -1,6 +1,7 @@
 package dev.batist.MoEstilo.infra.gateway;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.batist.MoEstilo.core.entities.Basket;
 import dev.batist.MoEstilo.core.entities.enums.Status;
 import dev.batist.MoEstilo.core.gateway.BasketGateway;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Component
 public class BasketRepositoryGateway implements BasketGateway {
@@ -58,7 +60,7 @@ public class BasketRepositoryGateway implements BasketGateway {
                 .ifPresent(b -> {
                     throw new EntityNotFoundException();
                 });
-        List<ProductsEntity> products = getProducts(mapper.toEntity(basket));
+        List<ProductsEntity> products = new ArrayList<>(getProducts(mapper.toEntity(basket)));
         BasketEntity basketEntity = BasketEntity.builder()
                 .client(basket.getClient())
                 .status(Status.OPEN)
@@ -66,6 +68,7 @@ public class BasketRepositoryGateway implements BasketGateway {
                 .build();
 
         basketEntity.calculateTotalPrice();
+        basketEntity.calculateTotalQuantity();
         BasketEntity seved = basketRepository.save(basketEntity);
         return mapper.toDomain(seved);
     }
@@ -91,6 +94,7 @@ public class BasketRepositoryGateway implements BasketGateway {
     public Basket filter(Long id) {
         BasketEntity entity = basketRepository.findByClient(id).orElse(null);
         entity.getTotalPrice();
+        entity.getTotalQuantity();
         Basket domain = mapper.toDomain(entity);
         return domain;
     }

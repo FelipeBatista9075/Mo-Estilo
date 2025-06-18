@@ -27,6 +27,7 @@ public class BasketEntityMapper {
                         .map(productMapper::toDomain)
                         .collect(Collectors.toList()))
                 .status(basket.getStatus())
+                .totalQuantity(basket.getTotalQuantity())
                 .build();
     }
 
@@ -44,7 +45,8 @@ public class BasketEntityMapper {
                                 p.getQty()
                         ))
                         .collect(Collectors.toList()),
-                entity.getStatus()
+                entity.getStatus(),
+                entity.getTotalQuantity()
         );
     }
 }

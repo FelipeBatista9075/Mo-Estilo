@@ -18,8 +18,10 @@ public class BasketMapper {
         return BasketDto.builder()
                 .client(basket.getClient())
                 .products(basket.getProducts().stream()
-                        .map(productsM::toDomain).collect(Collectors.toList()))
+                        .map(productsM::toDomain)
+                        .collect(Collectors.toList()))
                 .totalPrice(basket.getTotalPrice())
+                .totalQuantity(basket.getTotalQuantity())
                 .build();
     }
     public Basket toDomain(BasketDto dto) {
@@ -28,7 +30,8 @@ public class BasketMapper {
                 dto.products().stream()
                         .map(productsM::toEntity)
                         .collect(Collectors.toList()),
-                dto.totalPrice()
+                dto.totalPrice(),
+                dto.totalQuantity()
         );
     }
 }

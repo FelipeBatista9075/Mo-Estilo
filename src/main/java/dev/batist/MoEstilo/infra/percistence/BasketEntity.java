@@ -30,6 +30,8 @@ public class BasketEntity {
     private List<ProductsEntity> products;
     @Enumerated(EnumType.STRING)
     private Status status;
+    @Column(name = "total_quantity")
+    private Integer totalQuantity;
 
     public void calculateTotalPrice(){
         this.totalPrice = products.stream()
@@ -37,7 +39,26 @@ public class BasketEntity {
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
+    public void calculateTotalQuantity(){
+        this.totalQuantity = products.stream()
+                .mapToInt(p -> p.getQty() != null ? p.getQty() : 0)
+                .sum();
+    }
+    public void recalculate() {
+        calculateTotalPrice();
+        calculateTotalQuantity();
+    }
+
     public BasketEntity() {
+    }
+
+    public BasketEntity(UUID id, Long client, BigDecimal totalPrice, List<ProductsEntity> products, Status status, Integer totalQuantity) {
+        this.id = id;
+        this.client = client;
+        this.totalPrice = totalPrice;
+        this.products = products;
+        this.status = status;
+        this.totalQuantity = totalQuantity;
     }
 
     public BasketEntity(UUID id, Long client, BigDecimal totalPrice, List<ProductsEntity> products, Status status) {
@@ -46,6 +67,19 @@ public class BasketEntity {
         this.totalPrice = totalPrice;
         this.products = products;
         this.status = status;
+    }
+
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public Integer getTotalQuantity() {
+        return totalQuantity;
+    }
+
+    public void setTotalQuantity(Integer totalQuantity) {
+        this.totalQuantity = totalQuantity;
     }
 
     public UUID getId() {
