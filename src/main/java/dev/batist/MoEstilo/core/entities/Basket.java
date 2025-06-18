@@ -2,7 +2,6 @@ package dev.batist.MoEstilo.core.entities;
 
 
 import dev.batist.MoEstilo.core.entities.enums.Status;
-import dev.batist.MoEstilo.infra.percistence.ProductsEntity;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -14,16 +13,32 @@ public class Basket {
     private BigDecimal totalPrice;
     private List<Products> products;
     private Status status;
+    private Integer totalQuantity;
+
+    public <R> Basket(Long client, R collect, BigDecimal bigDecimal, Integer integer) {
+    }
+
+
+    public void recalculate() {
+        this.totalPrice = products.stream()
+                .map(p -> p.getPrice().multiply(BigDecimal.valueOf(p.getQty() != null ? p.getQty() : 0)))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        this.totalQuantity = products.stream()
+                .mapToInt(p -> p.getQty() != null ? p.getQty() : 0)
+                .sum();
+    }
 
     public Basket() {
     }
 
-    public Basket(UUID id, Long client, BigDecimal totalPrice, List<Products> products, Status status) {
+    public Basket(UUID id, Long client, BigDecimal totalPrice, List<Products> products, Status status, Integer totalQuantity) {
         this.id = id;
         this.client = client;
         this.totalPrice = totalPrice;
         this.products = products;
         this.status = status;
+        this.totalQuantity = totalQuantity;
     }
 
     public Basket(Long client, List<Products> products, BigDecimal bigDecimal) {
@@ -38,6 +53,18 @@ public class Basket {
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public Integer getTotalQuantity() {
+        return totalQuantity;
+    }
+
+    public void setTotalQuantity(Integer totalQuantity) {
+        this.totalQuantity = totalQuantity;
     }
 
     public Long getClient() {

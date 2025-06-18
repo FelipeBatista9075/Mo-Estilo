@@ -20,6 +20,9 @@ public class Products {
         this.qty = qty;
     }
 
+    public Products(Long id, String name, String description, BigDecimal price) {
+    }
+
     public Long getId() {
         return id;
     }

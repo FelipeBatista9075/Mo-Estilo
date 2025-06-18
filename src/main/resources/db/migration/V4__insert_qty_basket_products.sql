@@ -1,0 +1,1 @@
+ALTER TABLE basket ADD COLUMN total_quantity INT;
